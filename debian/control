@@ -1,0 +1,12 @@
+Source: rc-opi-addressbook
+Section: devel
+Priority: optional
+Maintainer: Tor Krill <tor@openproducts.se>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: http://www.openproducts.com
+
+Package: rc-opi-addressbook
+Architecture: all
+Depends: ${misc:Depends}
+Description: Roundcube plugin for OPI adresses
