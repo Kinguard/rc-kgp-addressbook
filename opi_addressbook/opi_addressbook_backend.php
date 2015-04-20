@@ -75,7 +75,7 @@ class opi_addressbook_backend extends rcube_addressbook
 			return false;
 		}
 
-		$ret = array('ID' => $key, 'name' => $line["FN"], 'email' => array($line["EMAIL"]));
+		$ret = array('ID' => $key, 'name' => $line["FN"], 'email' => $line["EMAIL"]);
 
 		if( isset($line["N"]) )
 		{
@@ -129,7 +129,14 @@ class opi_addressbook_backend extends rcube_addressbook
 		$data = array();
 		while ($line = mysqli_fetch_array($result, MYSQL_NUM))
 		{
-			$data[$line[0]][$line[1]] = $line[2];
+			if( $line[1] == "EMAIL" )
+			{
+				$data[$line[0]][$line[1]][]=$line[2];
+			}
+			else
+			{
+				$data[$line[0]][$line[1]] = $line[2];
+			}
 		}
 
 		$set = new rcube_result_set(0, ($this->list_page-1) * $this->page_size);

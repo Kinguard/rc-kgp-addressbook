@@ -1,3 +1,9 @@
+rc-opi-addressbook (0.5-2) vili; urgency=medium
+
+  * Fix bug that only returned one email per user
+
+ -- Tor Krill <tor@openproducts.se>  Mon, 20 Apr 2015 16:48:01 +0200
+
 rc-opi-addressbook (0.5-1) vili; urgency=low
 
   * Initial release
