@@ -4,8 +4,8 @@ require_once(dirname(__FILE__) . '/opi_addressbook_backend.php');
 
 class opi_addressbook extends rcube_plugin
 {
-	private $abook_id = 'opi';
-	private $abook_name = 'OPI contacts';
+	private $abook_id = 'kgp';
+	private $abook_name = 'KGP contacts';
 
 	public function init()
 	{
