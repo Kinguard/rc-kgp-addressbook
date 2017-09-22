@@ -2,7 +2,7 @@
 
 function l($log)
 {
-	rcube::write_log('errors', $log);
+	//rcube::write_log('errors', $log);
 }
 
 
@@ -20,7 +20,7 @@ class opi_addressbook_backend extends rcube_addressbook
 
 	public function __construct($name, $user)
 	{
-		include "/usr/share/owncloud/config/config.php";
+		include "/usr/share/nextcloud/config/config.php";
 
 		$this->name = $name;
 		$this->user = $user;
@@ -28,7 +28,7 @@ class opi_addressbook_backend extends rcube_addressbook
 		$this->db = mysqli_connect( $CONFIG["dbhost"], $CONFIG["dbuser"], $CONFIG["dbpassword"], $CONFIG["dbname"]);
 		if( $db === False )
 		{
-			rcube::write_log('errors', "Could not connect: ".mysql_error());
+			rcube::write_log('errors', "Could not connect: " . mysqli_connect_error() );
 			return;
 		}
 
@@ -98,13 +98,14 @@ class opi_addressbook_backend extends rcube_addressbook
 
 	private function get($ids = null)
 	{
-		$query = sprintf( "select contactid,name, value from oc_contacts_cards_properties where userid='%s'",
-			$this->user);
+		$query = sprintf( "select cardid, name, value from oc_cards_properties where addressbookid in " .
+			"(select id from oc_addressbooks where principaluri='principals/users/%s')"
+			, $this->user);
 
 		if( $ids )
 		{
 
-			$query .= " and contactid in ('";
+			$query .= " and cardid in ('";
 
 			if( gettype($ids) == "array" )
 			{
@@ -122,12 +123,12 @@ class opi_addressbook_backend extends rcube_addressbook
 
 		if( !$result )
 		{
-			rcube::write_log('errors', "Query failed: " . mysql_error());
+			rcube::write_log('errors', "Query failed: " . mysqli_error( $this->db ));
 			return false;
 		}
 
 		$data = array();
-		while ($line = mysqli_fetch_array($result, MYSQL_NUM))
+		while ($line = mysqli_fetch_array($result, MYSQLI_NUM))
 		{
 			if( $line[1] == "EMAIL" )
 			{
@@ -236,7 +237,7 @@ class opi_addressbook_backend extends rcube_addressbook
 	public function search($fields, $value, $mode=0, $select=true, $nocount=false, $required=array())
 	{
 
-		if( $mode == 0 )
+		if( $mode != 0 )
 		{
 			$this->set_search_set( array( 0, $fields, $value) );
 			$set = $this->partialsearch($fields, $value);
