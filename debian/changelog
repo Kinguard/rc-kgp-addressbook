@@ -1,3 +1,9 @@
+rc-opi-addressbook (0.7) vili; urgency=medium
+
+  * Buster update
+
+ -- Tor Krill <tor@openproducts.se>  Fri, 30 Aug 2019 11:46:15 +0200
+
 rc-opi-addressbook (0.6) vili; urgency=medium
 
   * Adapt to Nextcloud
