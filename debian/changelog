@@ -1,3 +1,9 @@
+rc-opi-addressbook (0.8) vigrid; urgency=medium
+
+  * Bullseye build
+
+ -- Tor Krill <tor@openproducts.se>  Tue, 01 Feb 2022 15:16:54 +0100
+
 rc-opi-addressbook (0.7) vili; urgency=medium
 
   * Buster update
